@@ -18,12 +18,14 @@ def find_by_tag(tag: str) -> list[str | None]:
     return result
 
 
+@cache
 def find_by_tags(tags: str):
-    result = []
+    # result = []
     tags = tags.split(',')
-    for tag in tags:
-        result.extend(find_by_tag(tag.strip()))
-    return result
+    quotes = Quote.objects(tags__in=tags)
+    # for tag in tags:
+    #     result.extend(find_by_tag(tag.strip()))
+    return [quote.to_json() for quote in quotes]
 
 
 @cache
