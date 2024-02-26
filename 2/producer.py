@@ -11,6 +11,9 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',
 channel = connection.channel()
 
 channel.exchange_declare(exchange='HW8 exchange', exchange_type='direct')
+channel.queue_declare(queue='sms', durable=False)
+channel.queue_declare(queue='email', durable=False)
+
 
 
 def create_fake_contacts(num_contacts):
@@ -28,7 +31,7 @@ def create_fake_contacts(num_contacts):
 
 
 def send_message_to_queue(queue_name, contact_id):
-    channel.queue_declare(queue=queue_name)
+    # channel.queue_declare(queue=queue_name)
     channel.queue_bind(exchange='HW8 exchange', queue=queue_name)
     channel.basic_publish(exchange='HW8 exchange', routing_key=queue_name, body=str(contact_id))
     time.sleep(0.1)
