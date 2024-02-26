@@ -15,7 +15,6 @@ channel.queue_declare(queue='sms', durable=False)
 channel.queue_declare(queue='email', durable=False)
 
 
-
 def create_fake_contacts(num_contacts):
     fake = Faker()
     contacts_ = []
