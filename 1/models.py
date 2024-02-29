@@ -24,5 +24,4 @@ class Quote(Document):
     def to_json(self, *args, **kwargs):
         data = self.to_mongo(*args, **kwargs)
         data["author"] = self.author.fullname
-        # data.pop('_id')
         return json_util.dumps(data.get('quote'), ensure_ascii=False)
